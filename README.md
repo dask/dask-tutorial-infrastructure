@@ -13,7 +13,9 @@ Deployment for Dask tutorial at PyCon 2018.
     + Version bumps
 - Removed some of the FUSE stuff (will re-add if needed)
 - Added Makefile
+- smaller workers (for now)
 
 ## Log
 
 - Confusion about "SECRET" variables for proxy, etc. It seems like these are manually input before deploying, & removed before committing.
+- The resources I requested in the initial `notebook/worker-template.yaml` (from pangeo) were too small. I haven't investigated whether the bottleneck is at the cluster or the `jupyterhub.singleuser` level yet.

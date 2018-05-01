@@ -1,0 +1,39 @@
+jupyterhub:
+
+  singleuser:
+    cmd: ['start-singleuser.sh']
+    cloudMetadata:  # TODO: Remove?
+      enabled: true
+    image:
+      name: tomaugspurger/dask-tutorial-notebook
+      tag: latest
+    cpu:
+      limit: 2
+      guarantee: 1
+    memory:
+      limit: 4G
+      guarantee: 2G
+    defaultUrl: "/lab"
+    serviceAccountName: daskkubernetes
+
+  hub:
+    extraConfig: |
+      from kubernetes import client
+      def modify_pod_hook(spawner, pod):
+          pod.spec.containers[0].security_context = client.V1SecurityContext(
+              privileged=True,
+              capabilities=client.V1Capabilities(
+                  add=['SYS_ADMIN']
+              )
+          )
+          return pod
+      c.KubeSpawner.modify_pod_hook = modify_pod_hook
+    image:
+      name: jupyterhub/k8s-hub
+      tag: v0.6
+
+  cull:
+    enabled: true
+    users: false
+    timeout: 1200
+    every: 600

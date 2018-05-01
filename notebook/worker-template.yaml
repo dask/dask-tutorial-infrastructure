@@ -1,0 +1,26 @@
+metadata:
+spec:
+  restartPolicy: Never
+  containers:
+  - args:
+      - dask-worker
+      - --nthreads
+      - '2'
+      - --no-bokeh
+      - --memory-limit
+      - 6GB
+      - --death-timeout
+      - '60'
+    image: tomaugspurger/dask-tutorial-worker:latest # TODO: pin  # TODO: upload to gcr.io
+    name: dask-worker
+    securityContext:
+      capabilities:
+        add: [SYS_ADMIN]
+      privileged: true
+    resources:
+      limits:
+        cpu: "0.5"
+        memory: 1G
+      requests:
+        cpu: "0.5"
+        memory: 1G

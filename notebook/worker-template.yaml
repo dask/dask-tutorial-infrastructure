@@ -11,7 +11,7 @@ spec:
       - 6GB
       - --death-timeout
       - '60'
-    image: gcr.io/dask-demo-182016/dask-tutorial-worker:latest # TODO: pin
+    image: gcr.io/dask-demo-182016/dask-tutorial-notebook:latest # TODO: pin
     name: dask-worker
     securityContext:
       capabilities:

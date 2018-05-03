@@ -5,7 +5,7 @@ jupyterhub:
     cloudMetadata:  # TODO: Remove?
       enabled: true
     image:
-      name: gcr.io/dask-demo-182016/dask-tutorial-worker
+      name: gcr.io/dask-demo-182016/dask-tutorial-notebook
       tag: latest
     cpu:
       limit: 2

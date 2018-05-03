@@ -17,17 +17,18 @@ jupyterhub:
     serviceAccountName: daskkubernetes
 
   hub:
-    extraConfig: |
-      from kubernetes import client
-      def modify_pod_hook(spawner, pod):
-          pod.spec.containers[0].security_context = client.V1SecurityContext(
-              privileged=True,
-              capabilities=client.V1Capabilities(
-                  add=['SYS_ADMIN']
+    extraConfig:
+        customPodHook: |
+          from kubernetes import client
+          def modify_pod_hook(spawner, pod):
+              pod.spec.containers[0].security_context = client.V1SecurityContext(
+                  privileged=True,
+                  capabilities=client.V1Capabilities(
+                      add=['SYS_ADMIN']
+                  )
               )
-          )
-          return pod
-      c.KubeSpawner.modify_pod_hook = modify_pod_hook
+              return pod
+          c.KubeSpawner.modify_pod_hook = modify_pod_hook
     image:
       name: jupyterhub/k8s-hub
       tag: v0.6

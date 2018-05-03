@@ -40,3 +40,11 @@ make jupyterhub
 
 - Confusion about "SECRET" variables for proxy, etc. It seems like these are manually input before deploying, & removed before committing.
 - The resources I requested in the initial `notebook/worker-template.yaml` (from pangeo) were too small. I haven't investigated whether the bottleneck is at the cluster or the `jupyterhub.singleuser` level yet.
+
+
+## Project-specific things
+
+1. Upload data to new bucket & make public
+2. Upload docker images to new bucket & make public
+3. Update Makefile
+4. Update pangeo-config

@@ -2,6 +2,27 @@
 
 Deployment for Dask tutorial at PyCon 2018.
 
+## Usage
+
+Ask for the following secret tokens, and set them as environment variables
+
+- `JUPYTERHUB_PROXY_TOKEN`
+
+```
+# Start the cluster (this relies on some global `gcloud` project config)
+make cluster
+
+# Install helm
+make helm
+```
+
+May have to wait a bit now. `helm version` should return a server & client version.
+
+```
+# Install pangeo / jupyterhub
+make jupyterhub --set jupyterhub.proxy.secretToken=$(JUPYTERHUB_PROXY_TOKEN)
+```
+
 ## Changes from `pangeo-data/pangeo`
 
 - No auth (yet)

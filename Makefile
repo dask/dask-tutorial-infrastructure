@@ -28,7 +28,7 @@ jupyterhub:
 		-f $(config)
 
 upgrade:
-	helm upgrade $(name) pangeo/pangeo --version=$(pangeo_version) -f $(config)
+	helm upgrade $(name) pangeo/pangeo --version=$(pangeo_version) -f $(config) --
 
 delete-helm:
 	helm delete $(name) --purge

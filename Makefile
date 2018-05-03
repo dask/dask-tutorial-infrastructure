@@ -29,12 +29,15 @@ jupyterhub:
 		--name=$(name) \
 		--namespace=$(name) \
 		-f $(config) \
-		-f secret-config.yaml \
-		--set jupyterhub.proxy.secretToken="${JUPYTERHUB_PROXY_TOKEN}"
+		-f secret-config.yaml
 
 
 upgrade:
-	helm upgrade $(name) pangeo/pangeo --version=$(pangeo_version) -f $(config) -f secret-config.yaml --set jupyterhub.proxy.secretToken="${JUPYTERHUB_PROXY_TOKEN}"
+	helm upgrade $(name) pangeo/pangeo \
+		--version=$(pangeo_version) \
+		-f $(config) \
+		-f secret-config.yaml \
+		--set jupyterhub.proxy.secretToken="${JUPYTERHUB_PROXY_TOKEN}"
 
 delete-helm:
 	helm delete $(name) --purge

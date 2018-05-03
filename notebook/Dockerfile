@@ -15,6 +15,7 @@ RUN conda install --yes -c ioam \
     dask-ml \
     distributed=1.21.6 \
     fastparquet \
+    gcsfs \
     ipywidgets \
     jupyterlab \
     holoviews \
@@ -28,6 +29,7 @@ RUN conda install --yes -c ioam \
     numpy \
     pandas=0.22.0 \
     python-blosc \
+    s3fs \
     scipy \
     scikit-image \
     scikit-learn \

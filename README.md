@@ -20,7 +20,7 @@ May have to wait a bit now. `helm version` should return a server & client versi
 
 ```
 # Install pangeo / jupyterhub
-make jupyterhub --set jupyterhub.proxy.secretToken=$(JUPYTERHUB_PROXY_TOKEN)
+make jupyterhub
 ```
 
 ## Changes from `pangeo-data/pangeo`

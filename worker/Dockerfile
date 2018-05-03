@@ -9,6 +9,7 @@ RUN conda install --yes -c conda-forge \
     dask=0.17.2 \
     distributed=1.21.6 \
     fastparquet \
+    gcsfs \
     git \
     lz4 \
     netcdf4 \
@@ -18,6 +19,8 @@ RUN conda install --yes -c conda-forge \
     numpy \
     pandas=0.22.0 \
     python-blosc \
+    s3fs \
+    scikit-learn \
     scikit-image \
     scipy \
     xarray \

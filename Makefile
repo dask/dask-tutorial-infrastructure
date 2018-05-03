@@ -1,8 +1,11 @@
 cluster_name = dask-pycon
 name = $(cluster_name)
-zone = us-central1-b
 config = pangeo-config.yaml
 pangeo_version = v0.1.0-673e876
+# GCP settings
+zone = us-central1-b
+project_id = dask-demo-182016
+
 
 cluster:
 	gcloud container clusters create $(cluster_name) \
@@ -25,10 +28,13 @@ jupyterhub:
 		--version=$(pangeo_version) \
 		--name=$(name) \
 		--namespace=$(name) \
-		-f $(config)
+		-f $(config) \
+		-f secret-config.yaml \
+		--set jupyterhub.proxy.secretToken="${JUPYTERHUB_PROXY_TOKEN}"
+
 
 upgrade:
-	helm upgrade $(name) pangeo/pangeo --version=$(pangeo_version) -f $(config) --
+	helm upgrade $(name) pangeo/pangeo --version=$(pangeo_version) -f $(config) -f secret-config.yaml --set jupyterhub.proxy.secretToken="${JUPYTERHUB_PROXY_TOKEN}"
 
 delete-helm:
 	helm delete $(name) --purge
@@ -39,3 +45,12 @@ delete-cluster:
 
 shrink:
 	gcloud container clusters resize $(cluster_name) --size=1 --zone=$(zone)
+
+docker-images: notebook/Dockerfile worker/Dockerfile
+	docker build -t gcr.io/$(project_id)/dask-tutorial-notebook:latest -t gcr.io/$(project_id)/dask-tutorial-notebook:$$(git rev-parse HEAD |cut -c1-6) notebook
+	docker build -t gcr.io/$(project_id)/dask-tutorial-worker:latest -t gcr.io/$(project_id)/dask-tutorial-worker:$$(git rev-parse HEAD |cut -c1-6) worker
+	docker push gcr.io/$(project_id)/dask-tutorial-notebook:latest
+	docker push gcr.io/$(project_id)/dask-tutorial-worker:latest
+
+commit:
+	echo "$$(git rev-parse HEAD)"

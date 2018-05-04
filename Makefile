@@ -7,11 +7,12 @@ pangeo_version ?= v0.1.0-673e876
 project_id ?= dask-demo-182016
 zone ?= us-central1-b
 num_nodes ?= 6
+machine_type ?= n1-standard-4
 
 cluster:
 	gcloud container clusters create $(cluster_name) \
     --num-nodes=$(num_nodes) \
-    --machine-type=n1-standard-2 \
+    --machine-type=$(machine_type) \
     --zone=$(zone) \
     --enable-autorepair \
     --enable-autoscaling --min-nodes=2 --max-nodes=50

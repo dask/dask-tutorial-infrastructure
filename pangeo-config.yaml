@@ -8,10 +8,10 @@ jupyterhub:
       name: gcr.io/dask-demo-182016/dask-tutorial-notebook
       tag: latest
     cpu:
-      limit: 2
+      limit: 4
       guarantee: 1
     memory:
-      limit: 4G
+      limit: 8G
       guarantee: 2G
     defaultUrl: "/lab"
     serviceAccountName: daskkubernetes

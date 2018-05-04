@@ -53,10 +53,12 @@ delete-cluster:
 shrink:
 	gcloud container clusters resize $(cluster_name) --size=3 --zone=$(zone)
 
-docker-images: notebook/Dockerfile worker/Dockerfile
+docker-notebook: notebook/Dockerfile
 	docker build -t gcr.io/$(project_id)/dask-tutorial-notebook:latest -t gcr.io/$(project_id)/dask-tutorial-notebook:$$(git rev-parse HEAD |cut -c1-6) notebook
-	docker build -t gcr.io/$(project_id)/dask-tutorial-worker:latest -t gcr.io/$(project_id)/dask-tutorial-worker:$$(git rev-parse HEAD |cut -c1-6) worker
 	docker push gcr.io/$(project_id)/dask-tutorial-notebook:latest
+
+docker-worker: worker/Dockerfile
+	docker build -t gcr.io/$(project_id)/dask-tutorial-worker:latest -t gcr.io/$(project_id)/dask-tutorial-worker:$$(git rev-parse HEAD |cut -c1-6) worker
 	docker push gcr.io/$(project_id)/dask-tutorial-worker:latest
 
 commit:

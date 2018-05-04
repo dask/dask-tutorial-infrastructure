@@ -26,5 +26,7 @@ if [ "$GCSFUSE_BUCKET" ]; then
     echo "Mounting $GCSFUSE_BUCKET to /gcs"
     /opt/conda/bin/gcsfuse $GCSFUSE_BUCKET /gcs --background
 fi
+
+cd /home/jovyan && git pull
 # Run extra commands
 $@

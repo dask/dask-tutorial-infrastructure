@@ -5,13 +5,15 @@ pangeo_version = v0.1.0-673e876
 # GCP settings
 zone = us-central1-b
 project_id = dask-demo-182016
+num_nodes = 6
 
 
 cluster:
 	gcloud container clusters create $(cluster_name) \
-    --num-nodes=3 \
+    --num-nodes=$(num_nodes) \
     --machine-type=n1-standard-2 \
-    --zone=$(zone)
+    --zone=$(zone) \
+    --enable-autorepair
 
 helm:
 	kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=taugspurger@anaconda.com
@@ -47,7 +49,7 @@ delete-cluster:
 	gcloud container clusters delete $(cluster_name) --zone=$(zone)
 
 shrink:
-	gcloud container clusters resize $(cluster_name) --size=1 --zone=$(zone)
+	gcloud container clusters resize $(cluster_name) --size=3 --zone=$(zone)
 
 docker-images: notebook/Dockerfile worker/Dockerfile
 	docker build -t gcr.io/$(project_id)/dask-tutorial-notebook:latest -t gcr.io/$(project_id)/dask-tutorial-notebook:$$(git rev-parse HEAD |cut -c1-6) notebook

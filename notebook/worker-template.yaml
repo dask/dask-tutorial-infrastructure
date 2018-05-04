@@ -19,8 +19,8 @@ spec:
       privileged: true
     resources:
       limits:
-        cpu: "0.5"
-        memory: 1G
+        cpu: "1.5"
+        memory: 5G
       requests:
-        cpu: "0.5"
-        memory: 1G
+        cpu: "1.5"
+        memory: 5G

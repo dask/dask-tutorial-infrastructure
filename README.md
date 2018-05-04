@@ -48,3 +48,14 @@ make jupyterhub
 2. Upload docker images to new bucket & make public
 3. Update Makefile
 4. Update pangeo-config
+
+## Numbers:
+
+67 attendees + 3 instructors + 10 person buffer, say 80 people.
+
+We want each attendee to get a cluster with 12 workers, plus the notebook server, so 13 / person.
+
+CPU: 1.75 * 13 * 80 = 1820
+Mem: 6 * 13 * 80 = 6240
+
+n1-standard-2 : 2 CPU & 7.5GB memory., so 80 * 13?

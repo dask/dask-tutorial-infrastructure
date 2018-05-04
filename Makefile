@@ -1,12 +1,12 @@
-cluster_name = dask-pycon
-name = $(cluster_name)
-config = pangeo-config.yaml
-pangeo_version = v0.1.0-673e876
-# GCP settings
-zone = us-central1-b
-project_id = dask-demo-182016
-num_nodes = 6
+cluster_name ?= dask-pycon
+name ?= $(cluster_name)
+config ?= pangeo-config.yaml
+pangeo_version ?= v0.1.0-673e876
 
+# GCP settings
+project_id ?= dask-demo-182016
+zone ?= us-central1-b
+num_nodes ?= 6
 
 cluster:
 	gcloud container clusters create $(cluster_name) \
@@ -26,7 +26,8 @@ jupyterhub:
 	helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
 	helm repo add pangeo https://pangeo-data.github.io/helm-chart/
 	helm repo update
-	helm install pangeo/pangeo \
+	@echo "Installing pangeo..."
+	@helm install pangeo/pangeo \
 		--version=$(pangeo_version) \
 		--name=$(name) \
 		--namespace=$(name) \
@@ -35,7 +36,8 @@ jupyterhub:
 
 
 upgrade:
-	helm upgrade $(name) pangeo/pangeo \
+	@echo "Upgrading..."
+	@helm upgrade $(name) pangeo/pangeo \
 		--version=$(pangeo_version) \
 		-f $(config) \
 		-f secret-config.yaml \

@@ -57,6 +57,7 @@ RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager \
 RUN jupyter serverextension enable --py nbserverproxy --sys-prefix
 
 USER root
+
 COPY prepare.sh /usr/bin/prepare.sh
 RUN chmod +x /usr/bin/prepare.sh
 RUN mkdir /home/$NB_USER/examples && chown -R $NB_USER /home/$NB_USER/examples

@@ -13,7 +13,8 @@ cluster:
     --num-nodes=$(num_nodes) \
     --machine-type=n1-standard-2 \
     --zone=$(zone) \
-    --enable-autorepair
+    --enable-autorepair \
+    --enable-autoscaling --min-nodes=2 --max-nodes=50
 
 helm:
 	kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=taugspurger@anaconda.com

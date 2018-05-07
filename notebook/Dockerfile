@@ -57,8 +57,8 @@ COPY prepare.sh /usr/bin/prepare.sh
 RUN chmod +x /usr/bin/prepare.sh
 RUN mkdir /home/$NB_USER/examples && chown -R $NB_USER /home/$NB_USER/examples
 RUN git clone https://github.com/TomAugspurger/dask-tutorial-pycon-2018 /pre-home/ && chown -R $NB_USER /pre-home
-COPY worker-template.yaml /pre-home
 # COPY examples/ /pre-home/examples/
+COPY worker-template.yaml /pre-home
 
 ENV DASK_TICK_MAXIMUM_DELAY=5s
 ENV DASKERNETES_DIAGNOSTICS_LINK {JUPYTERHUB_SERVICE_PREFIX}proxy/{port}/status

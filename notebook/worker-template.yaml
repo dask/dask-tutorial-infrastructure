@@ -1,6 +1,13 @@
 metadata:
 spec:
   restartPolicy: Never
+  nodeSelector:
+    cloud.google.com/gke-preemptible: "true"
+  tolerations:
+    - key: "preemptible"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"
   containers:
   - args:
       - dask-worker

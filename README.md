@@ -36,6 +36,19 @@ make jupyterhub
 - Added Makefile
 - smaller workers (for now)
 
+## Preemptible Nodes
+
+Not sure if this differes from pangeo-data/pangeo/gce, but we use two cluster instance groups.
+
+1. default: for jupyterhub, proxy, and schedulers
+2. preemptible: for workers
+
+See the changes to the `worker-template.yaml` for how we get worker pods scheduled on preemptible nodes.
+When we create the node pool with `--preemptible`, the label `cloud.google.com/gke-preemptible=true` is added.
+We also add the taint `preemptible=true:NoSchedule`, which repels the jupyterhub and scheduler pods from being
+scheduled on the preemptible nodes. The label is added to the `worker-template.yaml` and a toleration
+is added for the preemptible taint.
+
 ## Log
 
 - Confusion about "SECRET" variables for proxy, etc. It seems like these are manually input before deploying, & removed before committing.

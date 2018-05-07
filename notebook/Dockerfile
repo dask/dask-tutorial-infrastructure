@@ -46,9 +46,9 @@ RUN pip install daskernetes==0.1.3 \
                 --no-cache-dir \
                 --upgrade
 
+
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager \
-                                 @jupyterlab/hub-extension \
-                                 @pyviz/jupyterlab_holoviews
+                                 @jupyterlab/hub-extension
 
 RUN jupyter serverextension enable --py nbserverproxy --sys-prefix
 

@@ -15,14 +15,14 @@ cluster:
 	    --machine-type=$(machine_type) \
 	    --zone=$(zone) \
 	    --enable-autorepair
-	gcloud container node-pools create dask-pycon-preemptible \
+	gcloud beta container node-pools create dask-pycon-preemptible \
 	    --cluster=$(cluster_name) \
 	    --preemptible \
 	    --machine-type=$(machine_type) \
 	    --zone=$(zone) \
 	    --enable-autorepair \
 	    --enable-autoscaling --min-nodes=2 --max-nodes=100 \
-	    --node-taints=preemptible=true:NoSchedule
+	    --node-taints preemptible=true:NoSchedule
 
 helm:
 	kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=taugspurger@anaconda.com

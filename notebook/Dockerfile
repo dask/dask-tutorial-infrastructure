@@ -7,21 +7,18 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 USER $NB_USER
 
-RUN conda install --yes -c ioam \
-    bokeh=0.12.15 \
+RUN conda install --yes \
+    bokeh \
     cytoolz \
-    datashader \
-    dask=0.17.2 \
+    dask=0.17.4 \
     dask-ml \
-    distributed=1.21.6 \
+    distributed=1.21.8 \
     fastparquet \
     gcsfs \
     ipywidgets \
     jupyterlab \
-    holoviews \
     lz4 \
     matplotlib \
-    nb_conda_kernels \
     netcdf4 \
     nomkl \
     numba \
@@ -38,13 +35,12 @@ RUN conda install --yes -c ioam \
     zict \
     && conda clean -tipsy
 
-RUN pip install fusepy click jedi kubernetes graphviz --upgrade --no-cache-dir
+RUN pip install kubernetes graphviz --upgrade --no-cache-dir
 
 RUN pip install daskernetes==0.1.3 \
-                git+https://github.com/dask/dask-kubernetes@5ba08f714ef38e585e9f2038b6be530c578b96dd \
+                git+https://github.com/mrocklin/dask-kubernetes@e9456dbca8989a4551661aa344cd15f30af428cf \
                 git+https://github.com/zarr-developers/zarr \
                 git+https://github.com/pydata/xarray \
-                git+https://github.com/ioam/holoviews@3f015c0a531f54518abbfecffaac72a7b3554ed3\
                 git+https://github.com/dask/gcsfs@2fbdc27e838a531ada080886ae778cb370ae48b8\
                 git+https://github.com/jupyterhub/nbserverproxy \
                 --no-cache-dir \

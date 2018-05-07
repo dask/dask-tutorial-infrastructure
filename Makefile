@@ -6,7 +6,7 @@ pangeo_version ?= v0.1.0-673e876
 # GCP settings
 project_id ?= dask-demo-182016
 zone ?= us-central1-b
-num_nodes ?= 6
+num_nodes ?= 3
 machine_type ?= n1-standard-4
 
 cluster:
@@ -15,7 +15,7 @@ cluster:
     --machine-type=$(machine_type) \
     --zone=$(zone) \
     --enable-autorepair \
-    --enable-autoscaling --min-nodes=2 --max-nodes=50
+    --enable-autoscaling --min-nodes=2 --max-nodes=100
 
 helm:
 	kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=taugspurger@anaconda.com

@@ -63,6 +63,11 @@ delete-cluster:
 shrink:
 	gcloud container clusters resize $(cluster_name) --size=3 --zone=$(zone)
 
+scale-up:
+	gcloud container clusters resize dask-pycon --node-pool=dask-pycon-preemptible --size=720 --zone=us-central1-b
+	gcloud container clusters resize dask-pycon --node-pool=default-pool --size=80 --zone=us-central1-b
+
+
 docker-notebook: notebook/Dockerfile
 	docker build -t gcr.io/$(project_id)/dask-tutorial-notebook:latest -t gcr.io/$(project_id)/dask-tutorial-notebook:$$(git rev-parse HEAD |cut -c1-6) notebook
 	docker push gcr.io/$(project_id)/dask-tutorial-notebook:latest

@@ -15,14 +15,14 @@ cluster:
 	    --machine-type=$(machine_type) \
 	    --zone=$(zone) \
 	    --enable-autorepair \
-	    --enable-autoscaling --min-nodes=1 --max-nodes=100
+	    --enable-autoscaling --min-nodes=1 --max-nodes=200
 	gcloud beta container node-pools create dask-pycon-preemptible \
 	    --cluster=$(cluster_name) \
 	    --preemptible \
 	    --machine-type=$(machine_type) \
 	    --zone=$(zone) \
 	    --enable-autorepair \
-	    --enable-autoscaling --min-nodes=1 --max-nodes=100 \
+	    --enable-autoscaling --min-nodes=1 --max-nodes=900 \
 	    --node-taints preemptible=true:NoSchedule
 
 helm:

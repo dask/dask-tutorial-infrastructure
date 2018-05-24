@@ -42,7 +42,9 @@ jupyterhub:
 		--name=$(name) \
 		--namespace=$(name) \
 		-f $(config) \
-		-f secret-config.yaml
+		-f secret-config.yaml:\
+		--set jupyterhub.proxy.secretToken="${JUPYTERHUB_PROXY_TOKEN}" \
+		--set jupyterhub.auth.github.clientSecret="${JUPYTERHUB_AUTH_CLIENT_SECRET}"
 
 
 upgrade:
@@ -51,7 +53,8 @@ upgrade:
 		--version=$(pangeo_version) \
 		-f $(config) \
 		-f secret-config.yaml \
-		--set jupyterhub.proxy.secretToken="${JUPYTERHUB_PROXY_TOKEN}"
+		--set jupyterhub.proxy.secretToken="${JUPYTERHUB_PROXY_TOKEN}" \
+		--set jupyterhub.auth.github.clientSecret="${JUPYTERHUB_AUTH_CLIENT_SECRET}"
 
 delete-helm:
 	helm delete $(name) --purge

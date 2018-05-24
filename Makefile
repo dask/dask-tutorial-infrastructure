@@ -6,7 +6,7 @@ pangeo_version ?= v0.1.0-673e876
 # GCP settings
 project_id ?= dask-demo-182016
 zone ?= us-central1-b
-num_nodes ?= 3
+num_nodes ?= 1
 machine_type ?= n1-standard-4
 
 cluster:
@@ -15,14 +15,14 @@ cluster:
 	    --machine-type=$(machine_type) \
 	    --zone=$(zone) \
 	    --enable-autorepair \
-	    --enable-autoscaling --min-nodes=1 --max-nodes=200
+	    --enable-autoscaling --min-nodes=0 --max-nodes=10
 	gcloud beta container node-pools create dask-pycon-preemptible \
 	    --cluster=$(cluster_name) \
 	    --preemptible \
 	    --machine-type=$(machine_type) \
 	    --zone=$(zone) \
 	    --enable-autorepair \
-	    --enable-autoscaling --min-nodes=1 --max-nodes=900 \
+	    --enable-autoscaling --min-nodes=0 --max-nodes=70 \
 	    --node-taints preemptible=true:NoSchedule
 
 helm:
@@ -64,8 +64,8 @@ shrink:
 	gcloud container clusters resize $(cluster_name) --size=3 --zone=$(zone)
 
 scale-up:
-	gcloud container clusters resize dask-pycon --node-pool=dask-pycon-preemptible --size=720 --zone=us-central1-b
-	gcloud container clusters resize dask-pycon --node-pool=default-pool --size=80 --zone=us-central1-b
+	gcloud container clusters resize dask-pycon --node-pool=dask-pycon-preemptible --size=640 --zone=us-central1-b
+	gcloud container clusters resize dask-pycon --node-pool=default-pool --size=70 --zone=us-central1-b
 
 
 docker-notebook: notebook/Dockerfile

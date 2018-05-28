@@ -9,8 +9,8 @@ USER $NB_USER
 
 RUN conda install --yes \
     bokeh \
-    Cython \
     cytoolz \
+    Cython \
     dask=0.17.4 \
     distributed=1.21.8 \
     fastparquet \

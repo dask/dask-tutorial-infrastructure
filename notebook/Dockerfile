@@ -39,7 +39,7 @@ RUN pip install -e git+https://github.com/TomAugspurger/scikit-learn@8951f0c44b7
     --upgrade
 
 RUN pip install daskernetes==0.1.3 \
-                git+https://github.com/mrocklin/dask-kubernetes@e9456dbca8989a4551661aa344cd15f30af428cf \
+                git+https://github.com/dask/dask-kubernetes \
                 git+https://github.com/zarr-developers/zarr \
                 git+https://github.com/pydata/xarray \
                 git+https://github.com/dask/gcsfs@2fbdc27e838a531ada080886ae778cb370ae48b8\

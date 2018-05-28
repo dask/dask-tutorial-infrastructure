@@ -33,16 +33,14 @@ RUN conda install --yes -c conda-forge \
 
 RUN pip install pyasn1 click urllib3 --upgrade
 RUN pip install -e git+https://github.com/TomAugspurger/scikit-learn@8951f0c44b783e802da76a8c05f9832892dfd1e6#egg=scikit-learn \
-    --no-cache-dir \
-    --upgrade
+    --no-cache-dir
 
 
 RUN pip install git+https://github.com/zarr-developers/zarr \
                 git+https://github.com/pydata/xarray \
                 git+https://github.com/dask/gcsfs@2fbdc27e838a531ada080886ae778cb370ae48b8\
                 git+https://github.com/dask/dask-ml \
-                --no-cache-dir \
-                --upgrade
+                --no-cache-dir
 
 ENV OMP_NUM_THREADS=1
 ENV DASK_TICK_MAXIMUM_DELAY=5s

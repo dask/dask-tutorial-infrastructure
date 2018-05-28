@@ -9,8 +9,8 @@ USER $NB_USER
 
 RUN conda install --yes \
     bokeh \
-    cytoolz \
     Cython \
+    cytoolz \
     dask=0.17.4 \
     distributed=1.21.8 \
     fastparquet \
@@ -36,8 +36,7 @@ RUN conda install --yes \
 
 RUN pip install kubernetes graphviz --upgrade --no-cache-dir
 RUN pip install -e git+https://github.com/TomAugspurger/scikit-learn@8951f0c44b783e802da76a8c05f9832892dfd1e6#egg=scikit-learn \
-    --no-cache-dir \
-    --upgrade
+    --no-cache-dir
 
 RUN pip install daskernetes==0.1.3 \
                 git+https://github.com/dask/dask-kubernetes \
@@ -46,8 +45,8 @@ RUN pip install daskernetes==0.1.3 \
                 git+https://github.com/dask/gcsfs@2fbdc27e838a531ada080886ae778cb370ae48b8\
                 git+https://github.com/jupyterhub/nbserverproxy \
                 git+https://github.com/dask/dask-ml \
-                --no-cache-dir \
-                --upgrade
+                --no-cache-dir
+
 RUN jupyter labextension install \
     @jupyter-widgets/jupyterlab-manager \
     @jupyterlab/hub-extension \

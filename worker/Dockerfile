@@ -1,10 +1,15 @@
 FROM continuumio/miniconda3:4.3.14
+RUN apt-get update \
+    && apt-get install -yq --no-install-recommends build-essential \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Dumb init
 RUN wget -O /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.0/dumb-init_1.2.0_amd64
 RUN chmod +x /usr/local/bin/dumb-init
 
 RUN conda install --yes -c conda-forge \
+    Cython \
     cytoolz \
     dask=0.17.4 \
     distributed=1.21.8 \

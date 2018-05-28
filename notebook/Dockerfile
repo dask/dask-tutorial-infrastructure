@@ -2,7 +2,7 @@ FROM jupyter/base-notebook
 
 USER root
 RUN apt-get update \
-  && apt-get install -yq --no-install-recommends build-essential graphviz git \
+  && apt-get install -yq --no-install-recommends graphviz git \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 USER $NB_USER
@@ -10,7 +10,6 @@ USER $NB_USER
 RUN conda install --yes \
     bokeh \
     cytoolz \
-    Cython \
     dask=0.17.4 \
     distributed=1.21.8 \
     fastparquet \
@@ -35,9 +34,10 @@ RUN conda install --yes \
     && conda clean -tipsy
 
 RUN pip install kubernetes graphviz --upgrade --no-cache-dir
-RUN pip install git+https://github.com/TomAugspurger/scikit-learn@8951f0c44b783e802da76a8c05f9832892dfd1e6 \
+RUN pip install -e git+https://github.com/TomAugspurger/scikit-learn@8951f0c44b783e802da76a8c05f9832892dfd1e6 \
     --no-cache-dir \
     --upgrade
+
 RUN pip install daskernetes==0.1.3 \
                 git+https://github.com/mrocklin/dask-kubernetes@e9456dbca8989a4551661aa344cd15f30af428cf \
                 git+https://github.com/zarr-developers/zarr \

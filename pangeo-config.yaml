@@ -6,7 +6,7 @@ jupyterhub:
       enabled: true
     image:
       name: gcr.io/dask-demo-182016/dask-tutorial-notebook
-      tag: latest
+      tag: f4606e
     cpu:
       limit: 4
       guarantee: 1

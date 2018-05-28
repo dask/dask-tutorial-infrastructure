@@ -11,7 +11,6 @@ RUN conda install --yes \
     bokeh \
     cytoolz \
     dask=0.17.4 \
-    dask-ml \
     distributed=1.21.8 \
     fastparquet \
     gcsfs \
@@ -29,7 +28,6 @@ RUN conda install --yes \
     s3fs \
     scipy \
     scikit-image \
-    scikit-learn \
     tornado \
     xarray \
     zict \
@@ -43,6 +41,8 @@ RUN pip install daskernetes==0.1.3 \
                 git+https://github.com/pydata/xarray \
                 git+https://github.com/dask/gcsfs@2fbdc27e838a531ada080886ae778cb370ae48b8\
                 git+https://github.com/jupyterhub/nbserverproxy \
+                git+https://github.com/dask/dask-ml \
+                git+https://github.com/TomAugspurger/scikit-learn@8951f0c44b783e802da76a8c05f9832892dfd1e6 \
                 --no-cache-dir \
                 --upgrade
 RUN jupyter labextension install \
@@ -58,7 +58,7 @@ COPY prepare.sh /usr/bin/prepare.sh
 RUN chmod +x /usr/bin/prepare.sh
 RUN mkdir /home/$NB_USER/examples && chown -R $NB_USER /home/$NB_USER/examples
 RUN git clone https://github.com/TomAugspurger/dask-tutorial-pycon-2018 /pre-home/ && chown -R $NB_USER /pre-home
-# COPY examples/ /pre-home/examples/
+COPY examples/ /pre-home/examples/
 COPY worker-template.yaml /pre-home
 
 ENV DASK_TICK_MAXIMUM_DELAY=5s

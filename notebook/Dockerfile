@@ -60,6 +60,7 @@ COPY prepare.sh /usr/bin/prepare.sh
 RUN chmod +x /usr/bin/prepare.sh
 RUN mkdir /home/$NB_USER/examples && chown -R $NB_USER /home/$NB_USER/examples
 RUN git clone https://github.com/TomAugspurger/dask-tutorial-pycon-2018 /pre-home/ && chown -R $NB_USER /pre-home
+RUN mv src/ /pre-home/src
 COPY examples/ /pre-home/examples/
 COPY worker-template.yaml /pre-home
 

@@ -44,8 +44,9 @@ RUN pip install -e git+https://github.com/TomAugspurger/scikit-learn@17f6b6a5b28
     && find /home/jovyan/src/scikit-learn/ -name '*.so' | xargs strip --strip-all
 
 
-RUN pip install daskernetes==0.1.3 \
-                dask-kubernetes \
+RUN pip install git+https://github.com/dask/dask \
+                git+https://github.com/dask/distributed \
+                git+https://github.com/dask/dask-kubernetes \
                 git+https://github.com/zarr-developers/zarr \
                 git+https://github.com/dask/gcsfs@2fbdc27e838a531ada080886ae778cb370ae48b8\
                 git+https://github.com/jupyterhub/nbserverproxy \
@@ -70,13 +71,9 @@ COPY examples/ /pre-home/examples/
 COPY worker-template.yaml /pre-home
 
 ENV DASK_TICK_MAXIMUM_DELAY=5s
-ENV DASKERNETES_DIAGNOSTICS_LINK {JUPYTERHUB_SERVICE_PREFIX}proxy/{port}/status
-ENV DASKERNETES_WORKER_TEMPLATE_PATH /home/$NB_USER/worker-template.yaml
-ENV DASKERNETES_WORKER_NAME dask-{JUPYTERHUB_USER}-{uuid}
-ENV DASK_DIAGNOSTICS_LINK {JUPYTERHUB_SERVICE_PREFIX}proxy/{port}/status
-ENV DASK_KUBERNETES_WORKER_TEMPLATE_PATH /home/$NB_USER/worker-template.yaml
-ENV DASK_KUBERNETES_WORKER_NAME dask-{JUPYTERHUB_USER}-{uuid}
-ENV DASK_KUBERNETES_MAXIMUM_WORKERS 12
+ENV DASK_DISTRIBUTED__DASHBOARD__LINK {JUPYTERHUB_SERVICE_PREFIX}proxy/{port}/status
+ENV DASK_KUBERNETES__WORKER_TEMPLATE_PATH /home/$NB_USER/worker-template.yaml
+ENV DASK_KUBERNETES__NAME dask-{JUPYTERHUB_USER}-{uuid}
 
 RUN mkdir /gcs && chown -R $NB_USER /gcs
 RUN mkdir /opt/app

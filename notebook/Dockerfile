@@ -39,7 +39,7 @@ RUN pip install -e git+https://github.com/TomAugspurger/scikit-learn@8951f0c44b7
     --no-cache-dir
 
 RUN pip install daskernetes==0.1.3 \
-                git+https://github.com/dask/dask-kubernetes \
+                git+https://github.com/mrocklin/dask-kubernetes@e9456dbca8989a4551661aa344cd15f30af428cf \
                 git+https://github.com/zarr-developers/zarr \
                 git+https://github.com/pydata/xarray \
                 git+https://github.com/dask/gcsfs@2fbdc27e838a531ada080886ae778cb370ae48b8\
@@ -60,7 +60,7 @@ COPY prepare.sh /usr/bin/prepare.sh
 RUN chmod +x /usr/bin/prepare.sh
 RUN mkdir /home/$NB_USER/examples && chown -R $NB_USER /home/$NB_USER/examples
 RUN git clone https://github.com/TomAugspurger/dask-tutorial-pycon-2018 /pre-home/ && chown -R $NB_USER /pre-home
-RUN mv src/ /pre-home/src
+RUN mv src/ /pre-home/src/
 COPY examples/ /pre-home/examples/
 COPY worker-template.yaml /pre-home
 

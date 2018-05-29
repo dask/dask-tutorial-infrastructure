@@ -38,10 +38,10 @@ RUN conda install --yes \
 RUN pip install kubernetes graphviz --upgrade --no-cache-dir
 RUN pip install -e git+https://github.com/TomAugspurger/scikit-learn@17f6b6a5b2876e0c92c155aca975c47e59e099f6#egg=scikit-learn \
     --no-cache-dir \
-    && rm -rf /src/scikit-learn/build \
-    && rm -rf /src/scikit-learn/examples \
-    && rm -rf /src/scikit-learn/doc \
-    && find /src/scikit-learn/ -name '*.so' | xargs strip --strip-all
+    && rm -rf /home/jovyan/src/scikit-learn/build \
+    && rm -rf /home/jovyan/src/scikit-learn/examples \
+    && rm -rf /home/jovyan/src/scikit-learn/doc \
+    && find /home/jovyan/src/scikit-learn/ -name '*.so' | xargs strip --strip-all
 
 
 RUN pip install daskernetes==0.1.3 \

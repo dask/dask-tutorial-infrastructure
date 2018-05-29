@@ -6,7 +6,7 @@ jupyterhub:
       enabled: true
     image:
       name: gcr.io/dask-demo-182016/dask-tutorial-notebook
-      tag: b834e3
+      tag: d79c98
     cpu:
       limit: 4
       guarantee: 1
@@ -34,6 +34,10 @@ jupyterhub:
     image:
       name: jupyterhub/k8s-hub
       tag: v0.6
+
+  prePuller:
+    hook:
+      enabled: false
 
   cull:
     enabled: true

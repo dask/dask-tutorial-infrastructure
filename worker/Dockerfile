@@ -26,17 +26,26 @@ RUN conda install --yes -c conda-forge \
     scikit-image \
     scipy \
     zict \
-    && conda clean -tipsy
+    && conda clean -tipsy \
+    && rm -rf /opt/conda/pkgs \
+    && find /opt/conda/ -name '*.so' | xargs strip --strip-all; exit 0;
 
 RUN pip install pyasn1 click urllib3 --upgrade
-RUN pip install -e git+https://github.com/TomAugspurger/scikit-learn@8951f0c44b783e802da76a8c05f9832892dfd1e6#egg=scikit-learn \
-    --no-cache-dir
+RUN pip install -e git+https://github.com/TomAugspurger/scikit-learn@17f6b6a5b2876e0c92c155aca975c47e59e099f6#egg=scikit-learn \
+    --no-cache-dir \
+    && rm -rf /src/scikit-learn/build \
+    && rm -rf /src/scikit-learn/examples \
+    && rm -rf /src/scikit-learn/doc \
+    && find /src/scikit-learn/ -name '*.so' | xargs strip --strip-all
 
 
 RUN pip install git+https://github.com/zarr-developers/zarr \
-                git+https://github.com/dask/gcsfs@2fbdc27e838a531ada080886ae778cb370ae48b8\
+                git+https://github.com/dask/gcsfs@2fbdc27e838a531ada080886ae778cb370ae48b8 \
                 git+https://github.com/dask/dask-ml \
                 --no-cache-dir
+
+# COPY --from=builder /opt/conda /opt/
+# COPY --from=builder /src/scikit-learn /src/
 
 ENV OMP_NUM_THREADS=1
 ENV DASK_TICK_MAXIMUM_DELAY=5s
@@ -46,7 +55,5 @@ COPY prepare.sh /usr/bin/prepare.sh
 RUN chmod +x /usr/bin/prepare.sh
 RUN mkdir /opt/app
 RUN mkdir /gcs
-
-COPY --from=builder /opt/conda /opt/
 
 ENTRYPOINT ["/usr/local/bin/dumb-init", "/usr/bin/prepare.sh"]

@@ -1,4 +1,4 @@
-FROM jupyter/base-notebook
+FROM jupyter/base-notebook as builder
 
 USER root
 RUN apt-get update \
@@ -19,7 +19,6 @@ RUN conda install --yes \
     jupyterlab \
     lz4 \
     matplotlib \
-    netcdf4 \
     nomkl \
     numba \
     numcodecs \
@@ -30,18 +29,24 @@ RUN conda install --yes \
     scipy \
     scikit-image \
     tornado \
-    xarray \
     zict \
-    && conda clean -tipsy
+    && conda clean -tipsy \
+    && rm -rf /opt/conda/pkgs \
+    && find /opt/conda/ -name '*.so' | xargs strip --strip-all; exit 0;
+
 
 RUN pip install kubernetes graphviz --upgrade --no-cache-dir
-RUN pip install -e git+https://github.com/TomAugspurger/scikit-learn@8951f0c44b783e802da76a8c05f9832892dfd1e6#egg=scikit-learn \
-    --no-cache-dir
+RUN pip install -e git+https://github.com/TomAugspurger/scikit-learn@17f6b6a5b2876e0c92c155aca975c47e59e099f6#egg=scikit-learn \
+    --no-cache-dir \
+    && rm -rf /src/scikit-learn/build \
+    && rm -rf /src/scikit-learn/examples \
+    && rm -rf /src/scikit-learn/doc \
+    && find /src/scikit-learn/ -name '*.so' | xargs strip --strip-all
+
 
 RUN pip install daskernetes==0.1.3 \
-                git+https://github.com/mrocklin/dask-kubernetes@e9456dbca8989a4551661aa344cd15f30af428cf \
+                dask-kubernetes \
                 git+https://github.com/zarr-developers/zarr \
-                git+https://github.com/pydata/xarray \
                 git+https://github.com/dask/gcsfs@2fbdc27e838a531ada080886ae778cb370ae48b8\
                 git+https://github.com/jupyterhub/nbserverproxy \
                 git+https://github.com/dask/dask-ml \

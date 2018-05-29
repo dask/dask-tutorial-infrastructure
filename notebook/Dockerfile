@@ -54,8 +54,8 @@ RUN pip install git+https://github.com/dask/dask \
                 --no-cache-dir
 
 RUN jupyter labextension install \
-    @jupyter-widgets/jupyterlab-manager \
     @jupyterlab/hub-extension \
+    @jupyter-widgets/jupyterlab-manager \
     jupyterlab_bokeh
 
 RUN jupyter serverextension enable --py nbserverproxy --sys-prefix

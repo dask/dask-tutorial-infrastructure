@@ -1,4 +1,4 @@
-FROM continuumio/miniconda3:4.3.14
+FROM continuumio/miniconda3:4.3.14 as builder
 RUN apt-get update \
     && apt-get install -yq --no-install-recommends build-essential \
     && apt-get clean \
@@ -14,10 +14,8 @@ RUN conda install --yes -c conda-forge \
     dask=0.17.4 \
     distributed=1.21.8 \
     fastparquet \
-    gcsfs \
     git \
     lz4 \
-    netcdf4 \
     nomkl \
     numba \
     numcodecs \
@@ -27,7 +25,6 @@ RUN conda install --yes -c conda-forge \
     s3fs \
     scikit-image \
     scipy \
-    xarray \
     zict \
     && conda clean -tipsy
 
@@ -37,7 +34,6 @@ RUN pip install -e git+https://github.com/TomAugspurger/scikit-learn@8951f0c44b7
 
 
 RUN pip install git+https://github.com/zarr-developers/zarr \
-                git+https://github.com/pydata/xarray \
                 git+https://github.com/dask/gcsfs@2fbdc27e838a531ada080886ae778cb370ae48b8\
                 git+https://github.com/dask/dask-ml \
                 --no-cache-dir
@@ -50,5 +46,7 @@ COPY prepare.sh /usr/bin/prepare.sh
 RUN chmod +x /usr/bin/prepare.sh
 RUN mkdir /opt/app
 RUN mkdir /gcs
+
+COPY --from=builder /opt/conda /opt/
 
 ENTRYPOINT ["/usr/local/bin/dumb-init", "/usr/bin/prepare.sh"]

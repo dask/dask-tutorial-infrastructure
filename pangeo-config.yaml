@@ -6,7 +6,7 @@ jupyterhub:
       enabled: true
     image:
       name: gcr.io/dask-demo-182016/dask-tutorial-notebook
-      tag: d79c98
+      tag: c96a9d
     cpu:
       limit: 4
       guarantee: 1
@@ -15,6 +15,8 @@ jupyterhub:
       guarantee: 2G
     defaultUrl: "/lab"
     serviceAccountName: daskkubernetes
+    # storage:
+    #     capacity: 20Gi
     # extraEnv:
     #   EXTRA_PIP_PACKAGESS: s3fs gcsfs
 

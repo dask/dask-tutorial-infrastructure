@@ -39,6 +39,8 @@ RUN pip install -e git+https://github.com/TomAugspurger/scikit-learn@17f6b6a5b28
     && find /src/scikit-learn/ -name '*.so' | xargs strip --strip-all
 
 
+ENV OMP_NUM_THREADS=1
+
 RUN pip install git+https://github.com/dask/dask \
                 git+https://github.com/dask/distributed \
                 git+https://github.com/zarr-developers/zarr \
@@ -49,7 +51,6 @@ RUN pip install git+https://github.com/dask/dask \
 # COPY --from=builder /opt/conda /opt/
 # COPY --from=builder /src/scikit-learn /src/
 
-ENV OMP_NUM_THREADS=1
 ENV DASK_TICK_MAXIMUM_DELAY=5s
 
 USER root

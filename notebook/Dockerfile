@@ -44,6 +44,9 @@ RUN pip install -e git+https://github.com/TomAugspurger/scikit-learn@17f6b6a5b28
     && find /home/jovyan/src/scikit-learn/ -name '*.so' | xargs strip --strip-all
 
 
+RUN wget -O neurofinder.ipynb https://gist.githubusercontent.com/mrocklin/adf7e81638b92f07c986f5767af40fed/raw/070bf5dab5a1dee028cba925cf00cead9bb95570/neurofinder.ipynb
+
+RUN conda uninstall --force dask distributed
 RUN pip install git+https://github.com/dask/dask \
                 git+https://github.com/dask/distributed \
                 git+https://github.com/dask/dask-kubernetes \
@@ -52,8 +55,6 @@ RUN pip install git+https://github.com/dask/dask \
                 git+https://github.com/jupyterhub/nbserverproxy \
                 --no-cache-dir
 RUN pip install git+https://github.com/dask/dask-ml --no-cache-dir --upgrade
-
-RUN wget -O neurofinder.ipynb https://gist.githubusercontent.com/mrocklin/adf7e81638b92f07c986f5767af40fed/raw/070bf5dab5a1dee028cba925cf00cead9bb95570/neurofinder.ipynb
 
 RUN jupyter labextension install \
     @jupyterlab/hub-extension \

@@ -40,12 +40,13 @@ RUN pip install -e git+https://github.com/TomAugspurger/scikit-learn@17f6b6a5b28
 
 
 
+RUN conda uninstall --force dask distributed
 RUN pip install git+https://github.com/dask/dask \
                 git+https://github.com/dask/distributed \
                 git+https://github.com/zarr-developers/zarr \
                 git+https://github.com/dask/gcsfs@2fbdc27e838a531ada080886ae778cb370ae48b8 \
                 --no-cache-dir
-RUN pip install git+https://github.com/dask/dask-ml --no-cache-dir --upgrade
+RUN pip install git+https://github.com/dask/dask-ml --no-cache-dir
 
 ENV OMP_NUM_THREADS=1
 # COPY --from=builder /opt/conda /opt/

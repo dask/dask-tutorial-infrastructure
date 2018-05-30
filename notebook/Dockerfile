@@ -54,7 +54,7 @@ RUN pip install git+https://github.com/dask/dask \
                 git+https://github.com/dask/gcsfs@2fbdc27e838a531ada080886ae778cb370ae48b8\
                 git+https://github.com/jupyterhub/nbserverproxy \
                 --no-cache-dir
-RUN pip install git+https://github.com/dask/dask-ml --no-cache-dir --upgrade
+RUN pip install git+https://github.com/dask/dask-ml --no-cache-dir
 
 RUN jupyter labextension install \
     @jupyterlab/hub-extension \

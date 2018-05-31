@@ -19,15 +19,19 @@ RUN conda install --yes \
     jupyterlab \
     lz4 \
     matplotlib \
+    networkx \
     nomkl \
+    pillow \
+    pywavelets \
+    imageio \
     numba \
+    tifffile \
     numcodecs \
     numpy \
     pandas=0.22.0 \
     python-blosc \
     s3fs \
     scipy \
-    scikit-image \
     tornado \
     zict \
     && conda clean -tipsy \
@@ -51,6 +55,7 @@ RUN pip install git+https://github.com/dask/dask \
                 git+https://github.com/dask/distributed \
                 git+https://github.com/dask/dask-kubernetes \
                 git+https://github.com/zarr-developers/zarr \
+                git+https://github.com/scikit-image/scikit-image \
                 git+https://github.com/dask/gcsfs@2fbdc27e838a531ada080886ae778cb370ae48b8\
                 git+https://github.com/jupyterhub/nbserverproxy \
                 --no-cache-dir

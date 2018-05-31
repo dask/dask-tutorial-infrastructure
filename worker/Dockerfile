@@ -22,8 +22,12 @@ RUN conda install --yes -c conda-forge \
     numpy \
     pandas=0.22.0 \
     python-blosc \
+    networkx \
+    pillow \
+    pywavelets \
+    imageio \
+    tifffile \
     s3fs \
-    scikit-image \
     scipy \
     zict \
     && conda clean -tipsy \
@@ -44,6 +48,7 @@ RUN conda uninstall --force dask distributed
 RUN pip install git+https://github.com/dask/dask \
                 git+https://github.com/dask/distributed \
                 git+https://github.com/zarr-developers/zarr \
+                git+https://github.com/scikit-image/scikit-image \
                 git+https://github.com/dask/gcsfs@2fbdc27e838a531ada080886ae778cb370ae48b8 \
                 --no-cache-dir
 RUN pip install git+https://github.com/dask/dask-ml --no-cache-dir

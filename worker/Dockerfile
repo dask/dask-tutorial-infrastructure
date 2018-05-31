@@ -31,7 +31,7 @@ RUN conda install --yes -c conda-forge \
     && find /opt/conda/ -name '*.so' | xargs strip --strip-all; exit 0;
 
 RUN pip install pyasn1 click urllib3 --upgrade
-RUN pip install -e git+https://github.com/TomAugspurger/scikit-learn@17f6b6a5b2876e0c92c155aca975c47e59e099f6#egg=scikit-learn \
+RUN pip install -e git+https://github.com/TomAugspurger/scikit-learn@51ea8c6f8a54d65158bd81bf84f3e728ca5b7457#egg=scikit-learn \
     --no-cache-dir \
     && rm -rf /src/scikit-learn/build \
     && rm -rf /src/scikit-learn/examples \

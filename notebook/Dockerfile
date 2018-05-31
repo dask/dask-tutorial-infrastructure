@@ -36,7 +36,7 @@ RUN conda install --yes \
 
 
 RUN pip install kubernetes graphviz --upgrade --no-cache-dir
-RUN pip install -e git+https://github.com/TomAugspurger/scikit-learn@17f6b6a5b2876e0c92c155aca975c47e59e099f6#egg=scikit-learn \
+RUN pip install -e git+https://github.com/TomAugspurger/scikit-learn@51ea8c6f8a54d65158bd81bf84f3e728ca5b7457#egg=scikit-learn \
     --no-cache-dir \
     && rm -rf /home/jovyan/src/scikit-learn/build \
     && rm -rf /home/jovyan/src/scikit-learn/examples \

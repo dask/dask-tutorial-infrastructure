@@ -40,7 +40,7 @@ RUN conda install --yes \
 
 
 RUN pip install kubernetes graphviz --upgrade --no-cache-dir
-RUN pip install -e git+https://github.com/TomAugspurger/scikit-learn@51ea8c6f8a54d65158bd81bf84f3e728ca5b7457#egg=scikit-learn \
+RUN pip install -e git+https://github.com/TomAugspurger/scikit-learn@joblib-hints-2#egg=scikit-learn \
     --no-cache-dir \
     && rm -rf /home/jovyan/src/scikit-learn/build \
     && rm -rf /home/jovyan/src/scikit-learn/examples \
@@ -52,13 +52,19 @@ RUN wget -O neurofinder.ipynb https://gist.githubusercontent.com/mrocklin/adf7e8
 
 RUN conda uninstall --force dask distributed
 RUN pip install git+https://github.com/dask/dask \
-                git+https://github.com/dask/distributed \
+                git+https://github.com/ogrisel/distributed@auto-scatter \
                 git+https://github.com/dask/dask-kubernetes \
                 git+https://github.com/zarr-developers/zarr \
-                git+https://github.com/scikit-image/scikit-image \
                 git+https://github.com/dask/gcsfs@2fbdc27e838a531ada080886ae778cb370ae48b8\
                 git+https://github.com/jupyterhub/nbserverproxy \
                 --no-cache-dir
+
+RUN git clone https://github.com/scikit-image/scikit-image \
+ && cd scikit-image \
+ && python -m pip install . \
+ && cd .. \
+ && rm -rf scikit-image
+
 RUN pip install git+https://github.com/dask/dask-ml --no-cache-dir
 
 RUN jupyter labextension install \

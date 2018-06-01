@@ -35,7 +35,7 @@ RUN conda install --yes -c conda-forge \
     && find /opt/conda/ -name '*.so' | xargs strip --strip-all; exit 0;
 
 RUN pip install pyasn1 click urllib3 --upgrade
-RUN pip install -e git+https://github.com/TomAugspurger/scikit-learn@51ea8c6f8a54d65158bd81bf84f3e728ca5b7457#egg=scikit-learn \
+RUN pip install -e git+https://github.com/TomAugspurger/scikit-learn@joblib-hints-2#egg=scikit-learn \
     --no-cache-dir \
     && rm -rf /src/scikit-learn/build \
     && rm -rf /src/scikit-learn/examples \
@@ -46,12 +46,25 @@ RUN pip install -e git+https://github.com/TomAugspurger/scikit-learn@51ea8c6f8a5
 
 RUN conda uninstall --force dask distributed
 RUN pip install git+https://github.com/dask/dask \
-                git+https://github.com/dask/distributed \
+                git+https://github.com/ogrisel/distributed@auto-scatter \
                 git+https://github.com/zarr-developers/zarr \
-                git+https://github.com/scikit-image/scikit-image \
                 git+https://github.com/dask/gcsfs@2fbdc27e838a531ada080886ae778cb370ae48b8 \
                 --no-cache-dir
 RUN pip install git+https://github.com/dask/dask-ml --no-cache-dir
+RUN git clone https://github.com/scikit-image/scikit-image \
+ && cd scikit-image \
+ && python -m pip install . \
+ && cd .. \
+ && rm -rf scikit-image
+
+
+
+RUN git clone https://github.com/scikit-image/scikit-image \
+ && cd scikit-image \
+ && python -m pip install . \
+ && cd .. \
+ && rm -rf scikit-image
+
 
 ENV OMP_NUM_THREADS=1
 # COPY --from=builder /opt/conda /opt/

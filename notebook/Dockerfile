@@ -65,12 +65,12 @@ RUN git clone https://github.com/scikit-image/scikit-image \
  && cd .. \
  && rm -rf scikit-image
 
-RUN pip install git+https://github.com/dask/dask-ml --no-cache-dir
 
 RUN jupyter labextension install \
     @jupyterlab/hub-extension \
     @jupyter-widgets/jupyterlab-manager \
     jupyterlab_bokeh
+RUN pip install git+https://github.com/dask/dask-ml --no-cache-dir
 
 RUN jupyter serverextension enable --py nbserverproxy --sys-prefix
 

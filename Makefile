@@ -26,7 +26,7 @@ cluster:
 	    --node-taints preemptible=true:NoSchedule
 
 helm:
-	kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=taugspurger@anaconda.com
+	kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=martin.durant@utoronto.ca
 	kubectl --namespace kube-system create sa tiller
 	kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
 	helm init --service-account tiller

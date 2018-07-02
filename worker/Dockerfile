@@ -6,8 +6,8 @@ RUN chmod +x /usr/local/bin/dumb-init
 
 RUN conda install --yes -c conda-forge \
     cytoolz \
-    dask=0.17.4 \
-    distributed=1.21.8 \
+    dask=0.18.1 \
+    distributed=1.22 \
     fastparquet \
     gcsfs \
     git \
@@ -17,7 +17,7 @@ RUN conda install --yes -c conda-forge \
     numba \
     numcodecs \
     numpy \
-    pandas=0.22.0 \
+    pandas \
     python-blosc \
     s3fs \
     scikit-learn \

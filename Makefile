@@ -74,7 +74,7 @@ docker-%: %/Dockerfile
 		$(patsubst %/,%,$(dir $<))
 	gcloud container images add-tag \
 		gcr.io/$(project_id)/dask-tutorial-$(patsubst %/,%,$(dir $<)):$$(git rev-parse HEAD |cut -c1-6) \
-		gcr.io/$(project_id)/dask-tutorial-$(patsubst %/,%,$(dir $<)):latest
+		gcr.io/$(project_id)/dask-tutorial-$(patsubst %/,%,$(dir $<)):latest --quiet
 
 commit:
 	echo "$$(git rev-parse HEAD)"

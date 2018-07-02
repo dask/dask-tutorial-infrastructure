@@ -67,17 +67,6 @@ scale-up:
 	gcloud container clusters resize dask-pycon --node-pool=dask-pycon-preemptible --size=720 --zone=us-central1-b
 	gcloud container clusters resize dask-pycon --node-pool=default-pool --size=80 --zone=us-central1-b
 
-
-docker-notebook: notebook/Dockerfile
-	docker build -t gcr.io/$(project_id)/dask-tutorial-notebook:latest -t gcr.io/$(project_id)/dask-tutorial-notebook:$$(git rev-parse HEAD |cut -c1-6) notebook
-	docker push gcr.io/$(project_id)/dask-tutorial-notebook:latest
-	docker push gcr.io/$(project_id)/dask-tutorial-notebook:$$(git rev-parse HEAD |cut -c1-6)
-
-docker-worker: worker/Dockerfile
-	docker build -t gcr.io/$(project_id)/dask-tutorial-worker:latest -t gcr.io/$(project_id)/dask-tutorial-worker:$$(git rev-parse HEAD |cut -c1-6) worker
-	docker push gcr.io/$(project_id)/dask-tutorial-worker:latest
-	docker push gcr.io/$(project_id)/dask-tutorial-worker:$$(git rev-parse HEAD |cut -c1-6)
-
 docker-%: %/Dockerfile
 	gcloud container builds submit \
 		--tag gcr.io/$(project_id)/dask-tutorial-$(patsubst %/,%,$(dir $<)):$$(git rev-parse HEAD |cut -c1-6) \

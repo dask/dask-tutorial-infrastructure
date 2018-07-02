@@ -80,12 +80,12 @@ docker-worker: worker/Dockerfile
 
 docker-%: %/Dockerfile
 	gcloud container builds submit \
-		--tag gcr.io/$(project_id)/dask-ml-$(patsubst %/,%,$(dir $<)):$$(git rev-parse HEAD |cut -c1-6) \
+		--tag gcr.io/$(project_id)/dask-tutorial-$(patsubst %/,%,$(dir $<)):$$(git rev-parse HEAD |cut -c1-6) \
 		--timeout=1h \
 		$(patsubst %/,%,$(dir $<))
 	gcloud container images add-tag \
-		gcr.io/$(project_id)/dask-ml-$(patsubst %/,%,$(dir $<)):$$(git rev-parse HEAD |cut -c1-6) \
-		gcr.io/$(project_id)/dask-ml-$(patsubst %/,%,$(dir $<)):latest
+		gcr.io/$(project_id)/dask-tutorial-$(patsubst %/,%,$(dir $<)):$$(git rev-parse HEAD |cut -c1-6) \
+		gcr.io/$(project_id)/dask-tutorial-$(patsubst %/,%,$(dir $<)):latest
 
 commit:
 	echo "$$(git rev-parse HEAD)"

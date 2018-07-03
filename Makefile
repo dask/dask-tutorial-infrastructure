@@ -8,6 +8,7 @@ project_id ?= dask-demo-182016
 zone ?= us-central1-b
 num_nodes ?= 3
 machine_type ?= n1-standard-4
+user ?= <google-account-email>
 
 cluster:
 	gcloud container clusters create $(cluster_name) \
@@ -24,9 +25,10 @@ cluster:
 	    --enable-autorepair \
 	    --enable-autoscaling --min-nodes=1 --max-nodes=900 \
 	    --node-taints preemptible=true:NoSchedule
+	gcloud container clusters get-credentials $(cluster_name) --zone $(zone)
 
 helm:
-	kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=martin.durant@utoronto.ca
+	kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=$(user)
 	kubectl --namespace kube-system create sa tiller
 	kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
 	helm init --service-account tiller
@@ -43,6 +45,7 @@ jupyterhub:
 		--namespace=$(name) \
 		-f $(config) \
 		-f secret-config.yaml
+		--set jupyterhub.proxy.secretToken="${JUPYTERHUB_PROXY_TOKEN}"
 
 
 upgrade:
@@ -58,7 +61,7 @@ delete-helm:
 	kubectl delete namespace $(name)
 
 delete-cluster:
-	gcloud container clusters delete $(cluster_name) --zone=$(zone)
+	yes | gcloud container clusters delete $(cluster_name) --zone=$(zone)
 
 shrink:
 	gcloud container clusters resize $(cluster_name) --size=3 --zone=$(zone)

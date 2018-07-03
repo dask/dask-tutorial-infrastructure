@@ -10,9 +10,9 @@ USER $NB_USER
 RUN conda install --yes \
     bokeh \
     cytoolz \
-    dask=0.17.4 \
+    dask=0.18.1 \
     dask-ml \
-    distributed=1.21.8 \
+    distributed=1.22 \
     fastparquet \
     gcsfs \
     ipywidgets \
@@ -24,7 +24,7 @@ RUN conda install --yes \
     numba \
     numcodecs \
     numpy \
-    pandas=0.22.0 \
+    pandas \
     python-blosc \
     s3fs \
     scipy \

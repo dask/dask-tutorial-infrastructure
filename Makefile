@@ -1,4 +1,4 @@
-cluster_name ?= dask-pycon
+cluster_name ?= dask-scipy
 name ?= $(cluster_name)
 config ?= pangeo-config.yaml
 pangeo_version ?= v0.1.0-673e876
@@ -17,7 +17,7 @@ cluster:
 	    --zone=$(zone) \
 	    --enable-autorepair \
 	    --enable-autoscaling --min-nodes=1 --max-nodes=200
-	gcloud beta container node-pools create dask-pycon-preemptible \
+	gcloud beta container node-pools create dask-scipy-preemptible \
 	    --cluster=$(cluster_name) \
 	    --preemptible \
 	    --machine-type=$(machine_type) \
@@ -67,8 +67,8 @@ shrink:
 	gcloud container clusters resize $(cluster_name) --size=3 --zone=$(zone)
 
 scale-up:
-	gcloud container clusters resize dask-pycon --node-pool=dask-pycon-preemptible --size=720 --zone=us-central1-b
-	gcloud container clusters resize dask-pycon --node-pool=default-pool --size=80 --zone=us-central1-b
+	gcloud container clusters resize $(cluster_name) --node-pool=dask-scipy-preemptible --size=720 --zone=$(zone)
+	gcloud container clusters resize $(cluster_name) --node-pool=default-pool --size=80 --zone=$(zone)
 
 docker-%: %/Dockerfile
 	gcloud container builds submit \

@@ -10,6 +10,7 @@ num_nodes ?= 3
 machine_type ?= n1-standard-4
 user ?= <google-account-email>
 
+
 cluster:
 	gcloud container clusters create $(cluster_name) \
 	    --num-nodes=$(num_nodes) \
@@ -72,12 +73,12 @@ scale-up:
 
 docker-%: %/Dockerfile
 	gcloud container builds submit \
-		--tag gcr.io/$(project_id)/dask-tutorial-$(patsubst %/,%,$(dir $<)):$$(git rev-parse HEAD |cut -c1-6) \
+		--tag gcr.io/$(project_id)/pandas-tutorial-$(patsubst %/,%,$(dir $<)):$$(git rev-parse HEAD |cut -c1-6) \
 		--timeout=1h \
 		$(patsubst %/,%,$(dir $<))
 	gcloud container images add-tag \
-		gcr.io/$(project_id)/dask-tutorial-$(patsubst %/,%,$(dir $<)):$$(git rev-parse HEAD |cut -c1-6) \
-		gcr.io/$(project_id)/dask-tutorial-$(patsubst %/,%,$(dir $<)):latest --quiet
+		gcr.io/$(project_id)/pandas-tutorial-$(patsubst %/,%,$(dir $<)):$$(git rev-parse HEAD |cut -c1-6) \
+		gcr.io/$(project_id)/pandas-tutorial-$(patsubst %/,%,$(dir $<)):latest --quiet
 
 commit:
 	echo "$$(git rev-parse HEAD)"

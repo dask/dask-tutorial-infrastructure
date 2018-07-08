@@ -1,4 +1,4 @@
-cluster_name ?= dask-scipy
+cluster_name ?= pandas-scipy
 name ?= $(cluster_name)
 config ?= pangeo-config.yaml
 pangeo_version ?= v0.1.0-673e876
@@ -10,7 +10,6 @@ num_nodes ?= 3
 machine_type ?= n1-standard-4
 user ?= <google-account-email>
 
-
 cluster:
 	gcloud container clusters create $(cluster_name) \
 	    --num-nodes=$(num_nodes) \
@@ -18,7 +17,7 @@ cluster:
 	    --zone=$(zone) \
 	    --enable-autorepair \
 	    --enable-autoscaling --min-nodes=1 --max-nodes=200
-	gcloud beta container node-pools create dask-scipy-preemptible \
+	gcloud beta container node-pools create $(cluster_name)-preemptible \
 	    --cluster=$(cluster_name) \
 	    --preemptible \
 	    --machine-type=$(machine_type) \
@@ -68,7 +67,7 @@ shrink:
 	gcloud container clusters resize $(cluster_name) --size=3 --zone=$(zone)
 
 scale-up:
-	gcloud container clusters resize $(cluster_name) --node-pool=dask-scipy-preemptible --size=720 --zone=$(zone)
+	gcloud container clusters resize $(cluster_name) --node-pool=$(cluster_name)-preemptible --size=720 --zone=$(zone)
 	gcloud container clusters resize $(cluster_name) --node-pool=default-pool --size=80 --zone=$(zone)
 
 docker-%: %/Dockerfile

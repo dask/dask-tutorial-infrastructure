@@ -10,9 +10,9 @@ USER $NB_USER
 RUN conda install --yes \
     bokeh \
     cytoolz \
-    dask=0.18.1 \
+    dask=0.18.2 \
     dask-ml \
-    distributed=1.22 \
+    distributed=1.22.1 \
     fastparquet \
     gcsfs \
     ipywidgets \
@@ -37,11 +37,10 @@ RUN conda install --yes \
 
 RUN pip install kubernetes graphviz --upgrade --no-cache-dir
 
-RUN pip install daskernetes==0.1.3 \
-                git+https://github.com/mrocklin/dask-kubernetes@e9456dbca8989a4551661aa344cd15f30af428cf \
+RUN pip install git+https://github.com/dask/dask-kubernetes \
                 git+https://github.com/zarr-developers/zarr \
                 git+https://github.com/pydata/xarray \
-                git+https://github.com/dask/gcsfs@2fbdc27e838a531ada080886ae778cb370ae48b8\
+                git+https://github.com/dask/gcsfs@2fbdc27e838a531ada080886ae778cb370ae48b8 \
                 git+https://github.com/jupyterhub/nbserverproxy \
                 --no-cache-dir \
                 --upgrade

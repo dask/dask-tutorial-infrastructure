@@ -7,11 +7,12 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 USER $NB_USER
 
-RUN conda install --yes \
-    bokeh \
-    cytoolz \
+RUN conda install --yes -c defaults -c conda-forge \
+    bokeh=0.12.7 \
+    toolz=0.9.0 \
     dask=0.18.2 \
-    dask-ml \
+    dask-ml>=0.7.0 \
+    cloudpickle=0.5.3 \
     distributed=1.22.1 \
     fastparquet \
     gcsfs \
@@ -30,7 +31,7 @@ RUN conda install --yes \
     scipy \
     scikit-image \
     scikit-learn \
-    tornado \
+    tornado=5.1 \
     xarray \
     zict \
     && conda clean -tipsy
@@ -38,8 +39,6 @@ RUN conda install --yes \
 RUN pip install kubernetes graphviz --upgrade --no-cache-dir
 
 RUN pip install git+https://github.com/dask/dask-kubernetes \
-                git+https://github.com/zarr-developers/zarr \
-                git+https://github.com/pydata/xarray \
                 git+https://github.com/dask/gcsfs@2fbdc27e838a531ada080886ae778cb370ae48b8 \
                 git+https://github.com/jupyterhub/nbserverproxy \
                 --no-cache-dir \

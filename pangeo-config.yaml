@@ -1,5 +1,4 @@
 jupyterhub:
-
   singleuser:
     cmd: ['start-singleuser.sh']
     cloudMetadata:  # TODO: Remove?

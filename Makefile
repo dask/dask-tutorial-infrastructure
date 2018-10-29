@@ -1,14 +1,17 @@
 cluster_name ?= dask-scipy
 name ?= $(cluster_name)
 config ?= pangeo-config.yaml
-pangeo_version ?= v0.1.0-673e876
+pangeo_version ?= v0.1.1-69b4a02  # Sat, 22 Sep 2018
 
 # GCP settings
 project_id ?= dask-demo-182016
 zone ?= us-central1-b
 num_nodes ?= 3
-machine_type ?= n1-standard-4
+machine_type ?= n1-standard-16
 user ?= <google-account-email>
+
+# 100 users, 20 cores each
+# 100 * 20 / 16 = 125
 
 cluster:
 	gcloud container clusters create $(cluster_name) \
@@ -16,14 +19,14 @@ cluster:
 	    --machine-type=$(machine_type) \
 	    --zone=$(zone) \
 	    --enable-autorepair \
-	    --enable-autoscaling --min-nodes=1 --max-nodes=200
+	    --enable-autoscaling --min-nodes=1 --max-nodes=150
 	gcloud beta container node-pools create dask-scipy-preemptible \
 	    --cluster=$(cluster_name) \
 	    --preemptible \
 	    --machine-type=$(machine_type) \
 	    --zone=$(zone) \
 	    --enable-autorepair \
-	    --enable-autoscaling --min-nodes=1 --max-nodes=900 \
+	    --enable-autoscaling --min-nodes=1 --max-nodes=200 \
 	    --node-taints preemptible=true:NoSchedule
 	gcloud container clusters get-credentials $(cluster_name) --zone $(zone)
 

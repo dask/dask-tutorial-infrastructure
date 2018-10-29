@@ -36,7 +36,7 @@ RUN conda install --yes -c defaults -c conda-forge \
     zarr \
     && conda clean -tipsy
 
-RUN pip install gcsfs nbserverproxy kubernetes graphviz --upgrade --no-cache-dir
+RUN pip install gcsfs jupyterhub nbserverproxy kubernetes graphviz --upgrade --no-cache-dir
 
 RUN pip install git+https://github.com/dask/dask-kubernetes \
                 --no-deps \

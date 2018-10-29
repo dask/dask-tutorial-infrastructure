@@ -20,7 +20,10 @@ cluster:
 	    --machine-type=$(machine_type) \
 	    --zone=$(zone) \
 	    --enable-autorepair \
-	    --enable-autoscaling --min-nodes=1 --max-nodes=150
+	    --enable-autoscaling --min-nodes=1 --max-nodes=150 \
+		--no-enable-basic-auth \
+		--no-issue-client-certificate \
+		--metadata disable-legacy-endpoints=true
 	gcloud beta container node-pools create dask-scipy-preemptible \
 	    --cluster=$(cluster_name) \
 	    --preemptible \

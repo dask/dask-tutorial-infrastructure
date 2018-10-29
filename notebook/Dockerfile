@@ -15,7 +15,6 @@ RUN conda install --yes -c defaults -c conda-forge \
     cloudpickle=0.5.3 \
     distributed=1.23.3 \
     fastparquet \
-    gcsfs \
     ipywidgets \
     jupyterlab=0.35.2 \
     lz4 \
@@ -37,7 +36,7 @@ RUN conda install --yes -c defaults -c conda-forge \
     zarr \
     && conda clean -tipsy
 
-RUN pip install kubernetes graphviz --upgrade --no-cache-dir
+RUN pip install gcsfs kubernetes graphviz --upgrade --no-cache-dir
 
 RUN pip install git+https://github.com/dask/dask-kubernetes \
                 --no-deps \

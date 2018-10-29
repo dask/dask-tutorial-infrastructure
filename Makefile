@@ -9,7 +9,7 @@ zone ?= us-central1-b
 num_nodes ?= 3
 machine_type ?= n1-standard-8
 worker_machine_type ?=n1-standard-16
-user ?= <google-account-email>
+user ?= taugspurger@anaconda.com
 
 # 100 users, 20 cores each
 # 100 * 20 / 16 = 125

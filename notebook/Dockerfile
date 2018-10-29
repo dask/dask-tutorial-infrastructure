@@ -9,7 +9,7 @@ USER $NB_USER
 
 RUN conda install --yes -c defaults -c conda-forge \
     python=3.7 \
-    bokeh=0.12.7 \
+    bokeh>=0.13.0 \
     dask=0.19.4 \
     dask-ml=0.11.0 \
     cloudpickle=0.5.3 \

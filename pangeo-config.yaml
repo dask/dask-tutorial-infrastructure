@@ -5,7 +5,7 @@ jupyterhub:
       enabled: true
     image:
       name: gcr.io/dask-demo-182016/dask-tutorial-notebook
-      tag: d1cdbef
+      tag: d1cdbe
     cpu:
       limit: 4
       guarantee: 1

@@ -8,16 +8,16 @@ RUN apt-get update \
 USER $NB_USER
 
 RUN conda install --yes -c defaults -c conda-forge \
+    python=3.7 \
     bokeh=0.12.7 \
-    toolz=0.9.0 \
-    dask=0.18.2 \
-    dask-ml>=0.7.0 \
+    dask=0.19.4 \
+    dask-ml=0.11.0 \
     cloudpickle=0.5.3 \
-    distributed=1.22.1 \
+    distributed=1.23.3 \
     fastparquet \
     gcsfs \
     ipywidgets \
-    jupyterlab \
+    jupyterlab=0.35.2 \
     lz4 \
     matplotlib \
     netcdf4 \
@@ -34,13 +34,13 @@ RUN conda install --yes -c defaults -c conda-forge \
     tornado=5.1 \
     xarray \
     zict \
+    zarr \
     && conda clean -tipsy
 
 RUN pip install kubernetes graphviz --upgrade --no-cache-dir
 
 RUN pip install git+https://github.com/dask/dask-kubernetes \
-                git+https://github.com/dask/gcsfs@2fbdc27e838a531ada080886ae778cb370ae48b8 \
-                git+https://github.com/jupyterhub/nbserverproxy \
+                --no-deps \
                 --no-cache-dir \
                 --upgrade
 RUN jupyter labextension install \

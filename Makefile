@@ -7,7 +7,8 @@ pangeo_version ?= v0.1.1-69b4a02  # Sat, 22 Sep 2018
 project_id ?= dask-demo-182016
 zone ?= us-central1-b
 num_nodes ?= 3
-machine_type ?= n1-standard-16
+machine_type ?= n1-standard-8
+worker_machine_type ?=n1-standard-16
 user ?= <google-account-email>
 
 # 100 users, 20 cores each
@@ -23,7 +24,7 @@ cluster:
 	gcloud beta container node-pools create dask-scipy-preemptible \
 	    --cluster=$(cluster_name) \
 	    --preemptible \
-	    --machine-type=$(machine_type) \
+	    --machine-type=$(worker_machine_type) \
 	    --zone=$(zone) \
 	    --enable-autorepair \
 	    --enable-autoscaling --min-nodes=1 --max-nodes=200 \

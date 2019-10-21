@@ -2,6 +2,9 @@
 
 Deployment for Dask tutorial at PyCon 2018.
 
+This repository is now archived, but the configuration may still be helpful in setting up your own
+cluster.
+
 ## Usage
 
 Ask for the following secret tokens, and set them as environment variables
